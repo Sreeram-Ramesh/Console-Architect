@@ -1,0 +1,23 @@
+[part]
+name = "QLC 3D (value)"
+cell = "QLC"
+bits_per_cell = 4
+
+[timing]
+t_r_us = 100
+t_prog_us = 1800
+t_bers_ms = 4.5
+page_bytes = 16384
+
+[reliability]
+pe_max = 1000
+rber0 = 8.0e-5
+wear_gain = 45
+retention_gain = 5.0
+
+[cache]
+pslc_write_mbps = 500
+native_write_mbps = 20
+
+[cost]
+usd_per_gb = 0.04

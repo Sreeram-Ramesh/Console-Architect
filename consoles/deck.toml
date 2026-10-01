@@ -1,0 +1,17 @@
+[console]
+name = "Handheld PC (Deck)"
+blurb = "Bandwidth and thermals matter. Long-ish traces, hot chassis."
+bom_budget_usd = 60
+battery_wh = 40.0
+
+[phy]
+trace_mm = 45
+mts_options = [800, 1200, 1600, 2400, 3200, 3600, 4800]
+mts = 1600
+odt = true
+zq = true
+mode = "Toggle"
+
+[defaults]
+nand = "tlc"
+ecc = "ldpc"

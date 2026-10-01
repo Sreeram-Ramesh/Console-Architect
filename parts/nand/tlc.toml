@@ -1,0 +1,23 @@
+[part]
+name = "TLC 3D (mainstream)"
+cell = "TLC"
+bits_per_cell = 3
+
+[timing]
+t_r_us = 45
+t_prog_us = 600
+t_bers_ms = 3.5
+page_bytes = 16384
+
+[reliability]
+pe_max = 3000
+rber0 = 1.0e-5
+wear_gain = 60
+retention_gain = 3.0
+
+[cache]
+pslc_write_mbps = 1500
+native_write_mbps = 350
+
+[cost]
+usd_per_gb = 0.06

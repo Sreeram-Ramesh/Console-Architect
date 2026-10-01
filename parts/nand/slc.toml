@@ -1,0 +1,23 @@
+[part]
+name = "SLC 3D (industrial)"
+cell = "SLC"
+bits_per_cell = 1
+
+[timing]
+t_r_us = 15
+t_prog_us = 200
+t_bers_ms = 3.0
+page_bytes = 16384
+
+[reliability]
+pe_max = 100000
+rber0 = 1.0e-8
+wear_gain = 40
+retention_gain = 1.0
+
+[cache]
+pslc_write_mbps = 700
+native_write_mbps = 700
+
+[cost]
+usd_per_gb = 0.30

@@ -1,0 +1,13 @@
+[ecc]
+name = "LDPC / 1KiB (soft)"
+kind = "LDPC"
+codeword_bytes = 1024
+parity_bytes = 128
+t_correct = 110
+decode_base_us = 6.0
+retry_gain = 0.55
+max_retries = 8
+soft_after = 3
+soft_gain = 1.6
+soft_decode_us = 40.0
+power_mw = 120

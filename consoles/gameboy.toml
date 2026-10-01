@@ -1,0 +1,17 @@
+[console]
+name = "Retro Handheld"
+blurb = "Tight BOM, tiny battery, short traces."
+bom_budget_usd = 12
+battery_wh = 4.0
+
+[phy]
+trace_mm = 25
+mts_options = [200, 400, 800, 1200, 1600]
+mts = 400
+odt = false
+zq = false
+mode = "Toggle"
+
+[defaults]
+nand = "slc"
+ecc = "bch40"

@@ -1,0 +1,13 @@
+[ecc]
+name = "BCH t=40 / 1KiB"
+kind = "BCH"
+codeword_bytes = 1024
+parity_bytes = 70
+t_correct = 40
+decode_base_us = 2.0
+retry_gain = 0.55
+max_retries = 6
+soft_after = 99
+soft_gain = 1.0
+soft_decode_us = 0.0
+power_mw = 35
