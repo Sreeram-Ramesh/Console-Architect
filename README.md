@@ -5,7 +5,7 @@ to load times, smoothness, battery, reliability and price. Terminal-only, Linux-
 
 #### Requirements:
 
-1. A linux based machine or terminal, uses tmux.
+1. A linux based machine or terminal, uses tui.
 2. Clone this repository into your local linux base env.
 3. Install `uv` in-order to create the project virtual env and match the lockfile `uv.lock`.
 
