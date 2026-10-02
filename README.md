@@ -3,6 +3,16 @@
 Design the memory system of a handheld console, then **play a game on it** and feel what every choice did
 to load times, smoothness, battery, reliability and price. Terminal-only, Linux-native, built for chip designers.
 
+#### Requirements:
+
+1. A linux based machine or terminal, uses tmux.
+2. Clone this repository into your local linux base env.
+3. Install `uv` in-order to create the project virtual env and match the lockfile `uv.lock`.
+
+```
+ curl -LsSf https://astral.sh/uv/install.sh | sh 
+```
+4. Once successfully installed run the following to build and run the Console Architect simulator.
 ```
 uv sync --group dev
 make run                     # the game (or: uv run ca play --level 2_openworld)
