@@ -1,0 +1,76 @@
+[level]
+id = "3_hotcar"
+order = 3
+name = "Summer in a Hot Car"
+console = "Handheld PC"
+theme = "deck"
+blurb = "Boss level. 55 C ambient on a dashboard. Heat shifts impedance, throttles NAND, and punishes every shortcut."
+goals = ["Retail price <= $479", "Survive the heat: no crash", "1% low FPS >= 35"]
+target_retail_usd = 479
+markup = 1.7
+base_bom_usd = 165
+fps_goal = 35
+battery_goal_h = 2.5
+
+[session]
+session_h = 2.5
+real_s = 100
+ambient_c = 55
+game_gb = 60
+patch_gb = 4
+load_gb = 6
+pe_fraction = 0.3
+
+[stream]
+speed0 = 6
+speed1 = 10
+mb_per_col = 45
+chunk_mb = 8
+ahead_max = 30
+
+[io]
+autosave_mb = 96
+autosave_every_s = 20
+write_pressure = 1.0
+
+[thermal]
+soc_w = 8.0
+r_base = 3.4
+c_th = 150
+throttle_c = 75
+
+[options]
+capacity_gb = [128, 256, 512, 1024]
+mts = [800, 1200, 1600, 2400, 3200, 3600, 4800]
+channels = [1, 2, 4]
+dies = [1, 2, 4]
+battery_wh = [25, 40, 50, 65]
+cooling = ["passive", "heatsink", "fan"]
+
+[default]
+storage = "nvme"
+capacity_gb = 256
+cell = "tlc"
+ecc = "ldpc"
+channels = 2
+dies = 2
+bus_mode = "Toggle"
+mts = 3200
+odt = true
+zq = true
+layout = "standard"
+op_pct = 7
+gc = "lazy"
+pslc_pct = 10
+plp = false
+battery_wh = 40
+cooling = "passive"
+
+[weights]
+load = 0.5
+smooth = 2.0
+popin = 1.0
+battery = 1.0
+reliability = 3.0
+price = 1.5
+life = 0.5

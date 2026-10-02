@@ -11,3 +11,5 @@ soft_after = 99
 soft_gain = 1.0
 soft_decode_us = 0.0
 power_mw = 35
+max_mbps = 700
+cost_usd = 0.5

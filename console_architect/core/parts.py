@@ -76,6 +76,8 @@ class EccConfig:
     soft_gain: float
     soft_decode_us: float
     power_mw: float
+    max_mbps: float = 1e9
+    cost_usd: float = 0.0
 
     @classmethod
     def load(cls, name_or_path: str) -> "EccConfig":

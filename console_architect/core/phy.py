@@ -207,3 +207,19 @@ def eye_traces(cfg: PhyConfig, res: EyeResult | None = None, n_traces: int = 120
         v = v / (1.0 + abs(res.gamma))
     v = v + rng.normal(0.0, SIGMA_V_MV / (res.swing_mv / 2.0), v.shape)
     return (t - 3.0 * ui) / ui, v
+
+
+def corner_sweep(cfg: PhyConfig, temps=(-10.0, 25.0, 85.0)) -> tuple[int, int, float, str]:
+    """Evaluate all PVT corners. Returns (n_fail, n_total, worst_slack_ps, worst_corner_name)."""
+    fail, total, worst, wname = 0, 0, float("inf"), ""
+    for p in PROCESS_TIMING:
+        for v in VDD_SCALE:
+            for t in temps:
+                c = Corner(p, v, float(t))
+                r = analyze(cfg.with_(corner=c))
+                s = min(r.setup_slack_ps, r.hold_slack_ps)
+                total += 1
+                fail += int(r.closed)
+                if s < worst:
+                    worst, wname = s, c.name
+    return fail, total, worst, wname

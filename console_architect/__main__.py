@@ -51,6 +51,37 @@ def cmd_report(a) -> None:
           f"crash/s={r.crash_prob_per_s:.2f}")
 
 
+def cmd_run(a) -> None:
+    from dataclasses import fields
+    from .core.build import Build
+    from .core.engine import Engine
+    from .core.levels import load_level
+    from .core.spec import estimate
+    from .core.verdict import AXIS_LABEL, AXES, collect, explain, reviews
+    L = load_level(a.level)
+    kw = dict(L.default)
+    types = {f.name: f.type for f in fields(Build)}
+    for kv in a.set:
+        k, v = kv.split("=", 1)
+        t = types[k]
+        kw[k] = (v.lower() in ("1", "true", "on", "yes")) if t in ("bool", bool) else \
+                int(v) if t in ("int", int) else float(v) if t in ("float", float) else v
+    b = Build(**kw)
+    sp = estimate(b, L)
+    e = Engine(b, L, a.seed)
+    boot = e.boot()
+    while not e.finished:
+        e.step(0.05)
+    m = collect(e, boot, sp, L)
+    print(f"{L.name}: {m.verdict}   {'*' * m.stars}{'.' * (5 - m.stars)}  overall {m.overall:.0f}/100")
+    for k in AXES:
+        print(f"  {AXIS_LABEL[k]:<15}{m.scores[k]:>5.0f}")
+    print(f"  patch {m.patch_s:.1f}s load {m.load_s:.1f}s | 1% low {m.fps_1pct:.0f} fps, {m.stutters} freezes {m.counts} | pop-in {m.pop_pct:.0f}% | "
+          f"battery {m.battery_h:.1f} h | retail ${m.retail:.0f} (target ${L.target_retail_usd:g})")
+    for les in explain(m, b, L, sp):
+        print(f"- {les.headline}\n    why: {les.why}\n    try: {les.tip}")
+
+
 def main(argv: list[str] | None = None) -> None:
     p = argparse.ArgumentParser(prog="ca", description="Console Architect")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -80,9 +111,19 @@ def main(argv: list[str] | None = None) -> None:
     r.add_argument("--seed", type=int, default=0)
     r.set_defaults(fn=cmd_report)
 
-    t = sub.add_parser("tui", help="launch the terminal game")
+    t = sub.add_parser("lab", help="the PHY signal-integrity lab (eye scope sandbox)")
     t.add_argument("--console", default="deck")
     t.set_defaults(fn=lambda a: __import__("console_architect.tui.app", fromlist=["run"]).run(a.console))
+
+    g = sub.add_parser("play", help="the playable game")
+    g.add_argument("--level", default=None, help="jump straight to a level id, e.g. 2_openworld")
+    g.set_defaults(fn=lambda a: __import__("console_architect.tui.game", fromlist=["run"]).run(a.level))
+
+    u = sub.add_parser("run", help="headless: simulate one level with a build, print the scorecard")
+    u.add_argument("level")
+    u.add_argument("--set", nargs="*", default=[], metavar="KEY=VALUE", help="override Build knobs")
+    u.add_argument("--seed", type=int, default=0)
+    u.set_defaults(fn=cmd_run)
 
     a = p.parse_args(argv)
     a.fn(a)
